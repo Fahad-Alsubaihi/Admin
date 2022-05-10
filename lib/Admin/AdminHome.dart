@@ -109,10 +109,10 @@ class _AdminHomeState extends State<AdminHome> {
                           'New Gyms ',
                           style: TextStyle(fontSize: 20),
                         ),
-                        Text(
-                          '500 ',
-                          style: TextStyle(fontSize: 20),
-                        ),
+                        // Text(
+                        //   '500 ',
+                        //   style: TextStyle(fontSize: 20),
+                        // ),
                       ],
                     ),
                     style: ElevatedButton.styleFrom(
@@ -149,10 +149,10 @@ class _AdminHomeState extends State<AdminHome> {
                           'Old Gyms ',
                           style: TextStyle(fontSize: 20),
                         ),
-                        Text(
-                          '500 ',
-                          style: TextStyle(fontSize: 20),
-                        ),
+                        // Text(
+                        //   '500 ',
+                        //   style: TextStyle(fontSize: 20),
+                        // ),
                       ],
                     ),
                     style: ElevatedButton.styleFrom(
@@ -188,10 +188,10 @@ class _AdminHomeState extends State<AdminHome> {
                           'Users ',
                           style: TextStyle(fontSize: 20),
                         ),
-                        Text(
-                          '500 ',
-                          style: TextStyle(fontSize: 20),
-                        ),
+                        // Text(
+                        //   '500 ',
+                        //   style: TextStyle(fontSize: 20),
+                        // ),
                       ],
                     ),
                     style: ElevatedButton.styleFrom(
@@ -204,6 +204,46 @@ class _AdminHomeState extends State<AdminHome> {
                       padding: EdgeInsets.all(20),
                       primary: Colors.white, // <-- Button color
                       onPrimary: Colors.pink, // <-- Splash color
+                    ),
+                  ),
+                )
+              ],
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                Container(
+                  margin: EdgeInsets.symmetric(horizontal: 30),
+                  height: 120,
+                  width: 120,
+                  child: ElevatedButton(
+                    onPressed: () {
+                      Navigator.of(context).push(
+                          MaterialPageRoute(builder: (context) => Users()));
+                    },
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          'Ban ',
+                          style: TextStyle(fontSize: 20),
+                        ),
+                        // Text(
+                        //   '500 ',
+                        //   style: TextStyle(fontSize: 20),
+                        // ),
+                      ],
+                    ),
+                    style: ElevatedButton.styleFrom(
+                      side: BorderSide(
+                        width: 7,
+                        color: Colors.red,
+                      ),
+
+                      shape: CircleBorder(),
+                      padding: EdgeInsets.all(20),
+                      primary: Colors.white, // <-- Button color
+                      onPrimary: Colors.red, // <-- Splash color
                     ),
                   ),
                 )

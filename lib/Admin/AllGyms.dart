@@ -16,6 +16,7 @@ class AllGyms extends StatefulWidget {
 class _AllGymsState extends State<AllGyms> {
   final FirebaseFirestore _fireStore = FirebaseFirestore.instance;
   List<GymModel> _gymsList = [];
+  int? size;
 
   Future? _getData() {
     if (widget.isNew!) {

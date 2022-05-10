@@ -14,7 +14,7 @@ class Users extends StatefulWidget {
 }
 
 class _UsersState extends State<Users> {
-  bool? isCustomers = true;
+  bool isCustomers = true;
   //bool? gymOwners;
   final FirebaseFirestore _fireStore = FirebaseFirestore.instance;
   List<ProfileModel> _CustomersList = [];
@@ -22,11 +22,11 @@ class _UsersState extends State<Users> {
 
   @override
   Widget build(BuildContext context) {
-    Future? _getData() {
+    Stream<dynamic>? _getData() {
       if (isCustomers == true) {
-        return _fireStore.collection("Customer").get();
+        return _fireStore.collection("Customer").snapshots();
       } else {
-        return _fireStore.collection("Gym Owner").get();
+        return _fireStore.collection("Gym Owner").snapshots();
       }
     }
 
@@ -122,14 +122,15 @@ class _UsersState extends State<Users> {
         Expanded(
           child: SingleChildScrollView(
             child: SafeArea(
-              child: FutureBuilder(
-                future: _getData(),
+              child: StreamBuilder(
+                stream: _getData(),
                 builder:
                     (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
                   if (snapshot.hasData) {
                     _CustomersList.clear();
                     snapshot.data.docs.forEach((element) {
-                      _CustomersList.add(ProfileModel.fromJson(element.data()));
+                      _CustomersList.add(ProfileModel.fromJson(
+                          element.data(), element.reference.id.toString()));
                     });
                     return Padding(
                       padding: const EdgeInsets.all(8.0),
@@ -141,8 +142,12 @@ class _UsersState extends State<Users> {
                             shrinkWrap: true,
                             itemCount: _CustomersList.length,
                             itemBuilder: (BuildContext context, int index) {
+                              // bool? isban = _CustomersList[index].isban;
                               return CustomerList(
                                   // gymInfo: _gymsList[index],
+                                  // uid: '',
+                                  // banuser: isban!,
+                                  isCustomer: isCustomers,
                                   user: _CustomersList[index]);
                             },
                           )
