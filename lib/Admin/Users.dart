@@ -50,35 +50,34 @@ class _UsersState extends State<Users> {
                     // print(widget.gym.gender);
                   });
                 },
-                child: SizedBox(
-                  width: MediaQuery.of(context).size.width / 3,
-                  child: Row(
-                    children: [
-                      Icon(
-                        Icons.person,
-                        size: 30,
+                child: Row(
+                  children: [
+                    Icon(
+                      Icons.person,
+                      size: 30,
+                      color: isCustomers == true
+                          ? colors.iconscolor
+                          : colors.hinttext,
+                    ),
+                    Text(
+                      "Customers",
+                      style: TextStyle(
+                        fontSize: 16,
+                        fontFamily: 'Roborto',
                         color: isCustomers == true
                             ? colors.iconscolor
                             : colors.hinttext,
+                        fontWeight: isCustomers == true
+                            ? FontWeight.bold
+                            : FontWeight.normal,
                       ),
-                      Text(
-                        "Customers",
-                        style: TextStyle(
-                          fontSize: 16,
-                          fontFamily: 'Roborto',
-                          color: isCustomers == true
-                              ? colors.iconscolor
-                              : colors.hinttext,
-                          fontWeight: isCustomers == true
-                              ? FontWeight.bold
-                              : FontWeight.normal,
-                        ),
-                      ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
               ),
-
+              SizedBox(
+                width: MediaQuery.of(context).size.width / 10,
+              ),
               // is Gym owner?
               GestureDetector(
                 onTap: () {
@@ -88,32 +87,30 @@ class _UsersState extends State<Users> {
                     //print(widget.gym.gender);
                   });
                 },
-                child: SizedBox(
-                  width: MediaQuery.of(context).size.width / 3,
-                  child: Row(
-                    children: [
-                      Icon(
-                        Icons.apartment,
-                        size: 30,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Icon(
+                      Icons.apartment,
+                      size: 30,
+                      color: isCustomers == true
+                          ? colors.hinttext
+                          : colors.iconscolor,
+                    ),
+                    Text(
+                      "Gym Owners",
+                      style: TextStyle(
+                        fontSize: 16,
+                        fontFamily: 'Roborto',
                         color: isCustomers == true
                             ? colors.hinttext
                             : colors.iconscolor,
+                        fontWeight: isCustomers == true
+                            ? FontWeight.normal
+                            : FontWeight.bold,
                       ),
-                      Text(
-                        "Gym Owners",
-                        style: TextStyle(
-                          fontSize: 16,
-                          fontFamily: 'Roborto',
-                          color: isCustomers == true
-                              ? colors.hinttext
-                              : colors.iconscolor,
-                          fontWeight: isCustomers == true
-                              ? FontWeight.normal
-                              : FontWeight.bold,
-                        ),
-                      ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
               ),
             ],
@@ -136,7 +133,7 @@ class _UsersState extends State<Users> {
                       padding: const EdgeInsets.all(8.0),
                       child: Column(
                         children: [
-                          ListView.builder(
+                          GridView.builder(
                             controller:
                                 ScrollController(keepScrollOffset: true),
                             shrinkWrap: true,
@@ -150,6 +147,9 @@ class _UsersState extends State<Users> {
                                   isCustomer: isCustomers,
                                   user: _CustomersList[index]);
                             },
+                            gridDelegate:
+                                SliverGridDelegateWithFixedCrossAxisCount(
+                                    crossAxisCount: 3, childAspectRatio: 5),
                           )
                         ],
                       ),
