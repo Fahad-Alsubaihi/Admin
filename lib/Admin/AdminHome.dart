@@ -1,3 +1,5 @@
+import 'package:Admin/models/review.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import '../Admin/AddAdmin.dart';
 import '../Admin/AllGyms.dart';
@@ -79,7 +81,7 @@ class _AdminHomeState extends State<AdminHome> {
           child: Column(
             children: [
               Row(
-                mainAxisAlignment: MainAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Container(
                       margin: EdgeInsets.fromLTRB(20, 10, 250, 0),
@@ -91,6 +93,45 @@ class _AdminHomeState extends State<AdminHome> {
                             fontStyle: FontStyle.italic,
                             fontSize: 30),
                       )),
+                  Container(
+                    margin: EdgeInsets.only(left: 300),
+                    height: 150,
+                    width: 150,
+                    child: ElevatedButton(
+                      onPressed: () {
+                        FirebaseFirestore.instance
+                            .collection('gyms')
+                            .where('isWaiting', isEqualTo: false)
+                            .get()
+                            .then((value) {
+                          value.docs.forEach((element) {
+                            Review.setRateToGym(element.reference.id);
+                          });
+                        });
+                      },
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            'Refresh',
+                            style: TextStyle(fontSize: 30),
+                          ),
+                        ],
+                      ),
+                      style: ElevatedButton.styleFrom(
+                        side: BorderSide(
+                          width: 7,
+                          color: Color.fromARGB(255, 170, 141, 62),
+                        ),
+
+                        shape: CircleBorder(),
+                        padding: EdgeInsets.all(20),
+                        primary: Colors.white, // <-- Button color
+                        onPrimary: Color.fromARGB(
+                            255, 170, 141, 62), // <-- Splash color
+                      ),
+                    ),
+                  )
                 ],
               ),
               Row(
@@ -137,7 +178,42 @@ class _AdminHomeState extends State<AdminHome> {
                         onPrimary: colors.blue_base, // <-- Splash color
                       ),
                     ),
-                  )
+                  ),
+                  Container(
+                    margin: EdgeInsets.only(left: 300),
+                    height: 200,
+                    width: 200,
+                    child: ElevatedButton(
+                      onPressed: () {
+                        Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) => Users(isCustomers: false)));
+                      },
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            'Owners ',
+                            style: TextStyle(fontSize: 40),
+                          ),
+                          // Text(
+                          //   '500 ',
+                          //   style: TextStyle(fontSize: 40),
+                          // ),
+                        ],
+                      ),
+                      style: ElevatedButton.styleFrom(
+                        side: BorderSide(
+                          width: 7,
+                          color: Colors.pink,
+                        ),
+
+                        shape: CircleBorder(),
+                        padding: EdgeInsets.all(20),
+                        primary: Colors.white, // <-- Button color
+                        onPrimary: Colors.pink, // <-- Splash color
+                      ),
+                    ),
+                  ),
                 ],
               ),
               Row(
@@ -177,46 +253,6 @@ class _AdminHomeState extends State<AdminHome> {
                         onPrimary: Colors.orange, // <-- Splash color
                       ),
                     ),
-                  )
-                ],
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Container(
-                    margin: EdgeInsets.only(left: 300),
-                    height: 200,
-                    width: 200,
-                    child: ElevatedButton(
-                      onPressed: () {
-                        Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) => Users(isCustomers: false)));
-                      },
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            'Owners ',
-                            style: TextStyle(fontSize: 40),
-                          ),
-                          // Text(
-                          //   '500 ',
-                          //   style: TextStyle(fontSize: 40),
-                          // ),
-                        ],
-                      ),
-                      style: ElevatedButton.styleFrom(
-                        side: BorderSide(
-                          width: 7,
-                          color: Colors.pink,
-                        ),
-
-                        shape: CircleBorder(),
-                        padding: EdgeInsets.all(20),
-                        primary: Colors.white, // <-- Button color
-                        onPrimary: Colors.pink, // <-- Splash color
-                      ),
-                    ),
                   ),
                   Container(
                     margin: EdgeInsets.only(left: 300),
@@ -253,8 +289,12 @@ class _AdminHomeState extends State<AdminHome> {
                             255, 62, 170, 105), // <-- Splash color
                       ),
                     ),
-                  )
+                  ),
                 ],
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [],
               )
             ],
           ),
