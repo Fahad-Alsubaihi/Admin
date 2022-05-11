@@ -120,10 +120,10 @@ class _AdminHomeState extends State<AdminHome> {
                                 fontSize:
                                     40 * MediaQuery.textScaleFactorOf(context)),
                           ),
-                          Text(
-                            '500 ',
-                            style: TextStyle(fontSize: 40),
-                          ),
+                          // Text(
+                          //   '500 ',
+                          //   style: TextStyle(fontSize: 40),
+                          // ),
                         ],
                       ),
                       style: ElevatedButton.styleFrom(
@@ -160,10 +160,10 @@ class _AdminHomeState extends State<AdminHome> {
                             'Old Gyms ',
                             style: TextStyle(fontSize: 40),
                           ),
-                          Text(
-                            '500 ',
-                            style: TextStyle(fontSize: 40),
-                          ),
+                          // Text(
+                          //   '500 ',
+                          //   style: TextStyle(fontSize: 40),
+                          // ),
                         ],
                       ),
                       style: ElevatedButton.styleFrom(
@@ -189,20 +189,20 @@ class _AdminHomeState extends State<AdminHome> {
                     width: 200,
                     child: ElevatedButton(
                       onPressed: () {
-                        Navigator.of(context).push(
-                            MaterialPageRoute(builder: (context) => Users()));
+                        Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) => Users(isCustomers: false)));
                       },
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Text(
-                            'Users ',
+                            'Owners ',
                             style: TextStyle(fontSize: 40),
                           ),
-                          Text(
-                            '500 ',
-                            style: TextStyle(fontSize: 40),
-                          ),
+                          // Text(
+                          //   '500 ',
+                          //   style: TextStyle(fontSize: 40),
+                          // ),
                         ],
                       ),
                       style: ElevatedButton.styleFrom(
@@ -215,6 +215,42 @@ class _AdminHomeState extends State<AdminHome> {
                         padding: EdgeInsets.all(20),
                         primary: Colors.white, // <-- Button color
                         onPrimary: Colors.pink, // <-- Splash color
+                      ),
+                    ),
+                  ),
+                  Container(
+                    margin: EdgeInsets.only(left: 300),
+                    height: 240,
+                    width: 240,
+                    child: ElevatedButton(
+                      onPressed: () {
+                        Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) => Users(isCustomers: true)));
+                      },
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            'Customers',
+                            style: TextStyle(fontSize: 40),
+                          ),
+                          // Text(
+                          //   '500 ',
+                          //   style: TextStyle(fontSize: 40),
+                          // ),
+                        ],
+                      ),
+                      style: ElevatedButton.styleFrom(
+                        side: BorderSide(
+                          width: 7,
+                          color: Color.fromARGB(255, 62, 170, 105),
+                        ),
+
+                        shape: CircleBorder(),
+                        padding: EdgeInsets.all(20),
+                        primary: Colors.white, // <-- Button color
+                        onPrimary: Color.fromARGB(
+                            255, 62, 170, 105), // <-- Splash color
                       ),
                     ),
                   )

@@ -35,7 +35,7 @@ class GymDescrption extends StatefulWidget {
 
 class _GymDescrptionState extends State<GymDescrption> {
   // int pricess = 6;
-  ProfileModel user = ProfileModel('', '', '');
+  ProfileModel user = ProfileModel('', '', '', '', false);
   String distance = 'Loading...';
   List<Review> reviews = [];
   Review? userReview;

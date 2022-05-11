@@ -63,6 +63,7 @@ class _AllGymsState extends State<AllGyms> {
                   _gymsList.add(GymModel.fromJson(element.data()));
                   //
                 });
+
                 return Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: GridView.builder(

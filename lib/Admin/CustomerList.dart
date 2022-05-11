@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import '../Styles.dart';
 import '../models/profile_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:cloud_functions/cloud_functions.dart';
+// import 'package:cloud_functions/cloud_functions.dart';
 
 import '../models/user.dart';
 
@@ -26,49 +26,49 @@ class CustomerList extends StatefulWidget {
 
 class _CustomerListState extends State<CustomerList> {
   bool? banuser;
-  static final _functions = FirebaseFunctions.instance;
+  // static final _functions = FirebaseFunctions.instance;
   @override
   void initState() {
     banuser = widget.user.isban;
     // final origin = Platform.isAndroid ? 'http://10.0.2.2:5001' : 'http://localhost:5001';
-    _functions.useFunctionsEmulator("localhost", 5001);
+    // _functions.useFunctionsEmulator("localhost", 5001);
     super.initState();
   }
 
-  static Future<dynamic> banCustomer(String uid) async {
+  banCustomer(String uid) async {
     FirebaseFirestore.instance
         .collection('Customer')
         .doc(uid)
         .update({'isban': true});
-    final HttpsCallable callable = _functions.httpsCallable("disabledUser");
-    return callable.call(uid);
+    // final HttpsCallable callable = _functions.httpsCallable("disabledUser");
+    // return callable.call(uid);
   }
 
-  static Future<dynamic> banOwner(String uid) async {
+  banOwner(String uid) async {
     FirebaseFirestore.instance
         .collection('Gym Owner')
         .doc(uid)
         .update({'isban': true});
-    final HttpsCallable callable = _functions.httpsCallable("disabledUser");
-    return callable.call(uid);
+    // final HttpsCallable callable = _functions.httpsCallable("disabledUser");
+    // return callable.call(uid);
   }
 
-  static Future<dynamic> unbanCustomer(String uid) async {
+  unbanCustomer(String uid) async {
     FirebaseFirestore.instance
         .collection('Customer')
         .doc(uid)
         .update({'isban': false});
-    final HttpsCallable callable = _functions.httpsCallable("enabledUser");
-    return callable.call(uid);
+    // final HttpsCallable callable = _functions.httpsCallable("enabledUser");
+    // return callable.call(uid);
   }
 
-  static Future<dynamic> unbanOwner(String uid) async {
+  unbanOwner(String uid) async {
     FirebaseFirestore.instance
         .collection('Gym Owner')
         .doc(uid)
         .update({'isban': false});
-    final HttpsCallable callable = _functions.httpsCallable("enabledUser");
-    return callable.call(uid);
+    // final HttpsCallable callable = _functions.httpsCallable("enabledUser");
+    // return callable.call(uid);
   }
 
   @override

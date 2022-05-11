@@ -7,120 +7,44 @@ import '../models/profile_model.dart';
 import 'CustomerList.dart';
 
 class Users extends StatefulWidget {
-  const Users({Key? key}) : super(key: key);
-
+  Users({Key? key, required this.isCustomers}) : super(key: key);
+  bool isCustomers;
   @override
   State<Users> createState() => _UsersState();
 }
 
 class _UsersState extends State<Users> {
-  bool isCustomers = true;
-  //bool? gymOwners;
   final FirebaseFirestore _fireStore = FirebaseFirestore.instance;
   List<ProfileModel> _CustomersList = [];
-//List<GymModel> _gymsList = [];
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    bool isCustomers = widget.isCustomers;
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
-    Stream<dynamic>? _getData() {
-      if (isCustomers == true) {
-        return _fireStore.collection("Customer").snapshots();
-      } else {
-        return _fireStore.collection("Gym Owner").snapshots();
-      }
-    }
-
     return Scaffold(
       appBar: AppBar(
         backgroundColor: colors.blue_base,
-        title: Text('Users'),
+        title: Text(widget.isCustomers ? 'Customers' : "Owners"),
       ),
       body: Column(children: [
         Padding(
           padding: const EdgeInsets.all(15.0),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              //is Customer?
-              GestureDetector(
-                onTap: () {
-                  setState(() {
-                    isCustomers = true;
-                    // widget.gym.gender = 'Men';
-                    // print(widget.gym.gender);
-                  });
-                },
-                child: Row(
-                  children: [
-                    Icon(
-                      Icons.person,
-                      size: 30,
-                      color: isCustomers == true
-                          ? colors.iconscolor
-                          : colors.hinttext,
-                    ),
-                    Text(
-                      "Customers",
-                      style: TextStyle(
-                        fontSize: 16,
-                        fontFamily: 'Roborto',
-                        color: isCustomers == true
-                            ? colors.iconscolor
-                            : colors.hinttext,
-                        fontWeight: isCustomers == true
-                            ? FontWeight.bold
-                            : FontWeight.normal,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              SizedBox(
-                width: MediaQuery.of(context).size.width / 10,
-              ),
-              // is Gym owner?
-              GestureDetector(
-                onTap: () {
-                  setState(() {
-                    isCustomers = false;
-
-                    //print(widget.gym.gender);
-                  });
-                },
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Icon(
-                      Icons.apartment,
-                      size: 30,
-                      color: isCustomers == true
-                          ? colors.hinttext
-                          : colors.iconscolor,
-                    ),
-                    Text(
-                      "Gym Owners",
-                      style: TextStyle(
-                        fontSize: 16,
-                        fontFamily: 'Roborto',
-                        color: isCustomers == true
-                            ? colors.hinttext
-                            : colors.iconscolor,
-                        fontWeight: isCustomers == true
-                            ? FontWeight.normal
-                            : FontWeight.bold,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ],
           ),
         ),
         Expanded(
           child: SingleChildScrollView(
             child: SafeArea(
-              child: StreamBuilder(
-                stream: _getData(),
+              child: FutureBuilder(
+                future: widget.isCustomers
+                    ? _fireStore.collection("Customer").get()
+                    : _fireStore.collection("Gym Owner").get(),
                 builder:
                     (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
                   if (snapshot.hasData) {
@@ -144,7 +68,7 @@ class _UsersState extends State<Users> {
                                   // gymInfo: _gymsList[index],
                                   // uid: '',
                                   // banuser: isban!,
-                                  isCustomer: isCustomers,
+                                  isCustomer: widget.isCustomers,
                                   user: _CustomersList[index]);
                             },
                             gridDelegate:
