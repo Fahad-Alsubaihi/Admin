@@ -8,6 +8,9 @@ import '../Styles.dart';
 //import 'package:gymhome/widgets/newhome.dart';
 import 'package:path/path.dart';
 
+import '../models/GymModel.dart';
+import '../models/placeloc.dart';
+
 class AdminHome extends StatefulWidget {
   const AdminHome({Key? key}) : super(key: key);
 
@@ -99,6 +102,28 @@ class _AdminHomeState extends State<AdminHome> {
                     width: 150,
                     child: ElevatedButton(
                       onPressed: () {
+                        // Navigator.of(context).push(
+                        //   MaterialPageRoute(
+                        //       builder: (context) => PlaceLocation(
+                        //           gym: GymModel([], [], [],
+                        //               0,
+                        //               0,
+                        //               0,
+                        //               0,
+                        //               0,
+                        //               '',
+                        //               'gymId',
+                        //               'ownerId',
+                        //               'Fahad',
+                        //               'description',
+                        //               GeoPoint(0, 0),
+                        //               false,
+                        //               false,
+                        //               'Men',
+                        //               0,
+                        //               0))),
+                        // );
+
                         FirebaseFirestore.instance
                             .collection('gyms')
                             .where('isWaiting', isEqualTo: false)

@@ -14,12 +14,15 @@ import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:Admin/models/review.dart';
 import 'package:Admin/Styles.dart';
 
+import '../models/placeloc.dart';
+import 'package:maps_launcher/maps_launcher.dart';
+
 //import 'package:Admin/models/user.dart';
 
 class GymDescrption extends StatefulWidget {
   GymModel gym;
   final bool isNew;
-  //List<Placelocation> gymsaddress;
+
   //final String userid;
   GymDescrption({
     Key? key,
@@ -354,6 +357,7 @@ class _GymDescrptionState extends State<GymDescrption> {
     GymModel gym = widget.gym;
     // String uid = widget.gym.ownerId!;
     double screenWidth = MediaQuery.of(context).size.width;
+    double screenheight = MediaQuery.of(context).size.height;
 
     return Scaffold(
       appBar: AppBar(
@@ -427,19 +431,51 @@ class _GymDescrptionState extends State<GymDescrption> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Row(
+                      Column(
                         children: [
-                          SizedBox(
-                            width: 40,
+                          Row(
+                            children: [
+                              SizedBox(
+                                width: 40,
+                              ),
+                              Text(
+                                distance,
+                                style: TextStyle(fontSize: 40),
+                              ),
+                              Icon(
+                                Icons.directions_walk_outlined,
+                                size: 40,
+                              )
+                            ],
                           ),
-                          Text(
-                            distance,
-                            style: TextStyle(fontSize: 40),
+                          TextButton.icon(
+                            label: Text(
+                              'See Location',
+                              style: TextStyle(
+                                  color: colors.blue_base, fontSize: 25),
+                            ),
+                            icon: const Icon(
+                              Icons.near_me_rounded,
+                              size: 25,
+                              color: colors.blue_base,
+                            ),
+
+                            // style: ButtonStyle(
+
+                            //     backgroundColor: MaterialStateProperty.all(
+                            //         Color.fromARGB(209, 71, 153, 183))),
+                            onPressed: () {
+                              MapsLauncher.launchCoordinates(
+                                widget.gym.location!.latitude,
+                                widget.gym.location!.longitude,
+                              );
+
+                              // Navigator.of(context).push(MaterialPageRoute(
+                              //     builder: (context) => Customermap(
+                              //           gym: gym,
+                              //         )));
+                            },
                           ),
-                          Icon(
-                            Icons.directions_walk_outlined,
-                            size: 40,
-                          )
                         ],
                       ),
                       Column(
@@ -470,9 +506,6 @@ class _GymDescrptionState extends State<GymDescrption> {
                         ],
                       ),
                     ],
-                  ),
-                  SizedBox(
-                    height: 15,
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
