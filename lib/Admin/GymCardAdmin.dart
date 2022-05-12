@@ -9,69 +9,64 @@ import '../models/profile_model.dart';
 class GymCardAdmin extends StatefulWidget {
   const GymCardAdmin({
     Key? key,
-    // required this.email,
-    // required this.name,
     required this.gymInfo,
     required this.isNew,
   }) : super(key: key);
   final GymModel gymInfo;
   final bool isNew;
-  // final String name;
-  // final String email;
 
   @override
   State<GymCardAdmin> createState() => _GymCardAdminState();
 }
 
 class _GymCardAdminState extends State<GymCardAdmin> {
-  // ProfileModel _userProfile = ProfileModel('', '', '', '', false);
-  // Future getOwnerName() async {
-  //   var data = await FirebaseFirestore.instance
-  //       .collection('Gym Owner')
-  //       .doc(widget.gymInfo.ownerId)
-  //       .get();
-  //   Map<String, dynamic> _owner = data.data() as Map<String, dynamic>;
-  //   setState(() {
-  //     owner = _owner['name'];
-  //     email = _owner['email'];
-  //   });
-  // }
+  ProfileModel _userProfile = ProfileModel('', '', '', '', false);
+  Future getOwnerName() async {
+    var data = await FirebaseFirestore.instance
+        .collection('Gym Owner')
+        .doc(widget.gymInfo.ownerId)
+        .get();
+    Map<String, dynamic> _owner = data.data() as Map<String, dynamic>;
+    setState(() {
+      name = _owner['name'];
+      email = _owner['email'];
+    });
+  }
 
-  // Future<void> _getOwnerinfo() async {
-  //   var _owner = await FirebaseFirestore.instance
-  //       .collection('Gym Owner')
-  //       .doc(widget.gymInfo.ownerId!)
-  //       .get();
-  //   Map<String, dynamic> own = await _owner.data() as Map<String, dynamic>;
-  //   name = own['name'];
-  //   email = own['email'];
-  // }
+  Future<void> _getOwnerinfo() async {
+    var _owner = await FirebaseFirestore.instance
+        .collection('Gym Owner')
+        .doc(widget.gymInfo.ownerId!)
+        .get();
+    Map<String, dynamic> own = await _owner.data() as Map<String, dynamic>;
+    name = own['name'];
+    email = own['email'];
+  }
 
   String name = 'Name Here';
   String email = 'Email Here';
   @override
   void initState() {
-    // if (mounted)
-    // String gymid = widget.gymInfo.gymId!;
+    if (mounted) String gymid = widget.gymInfo.gymId!;
     // print('gymId : $gymid');
-    // _getOwnerinfo().whenComplete(() {
-    //   setState(() {});
-    // });
-    // FirebaseFirestore.instance
-    //     .collection('Gym Owner')
-    //     .doc(widget.gymInfo.ownerId!)
-    //     .get()
-    //     .then((value) {
-    //   setState(() {
-    //     name = value.data()!['name'];
-    //     email = value.data()!['email'];
+    _getOwnerinfo().whenComplete(() {
+      setState(() {});
+    });
+    FirebaseFirestore.instance
+        .collection('Gym Owner')
+        .doc(widget.gymInfo.ownerId!)
+        .get()
+        .then((value) {
+      setState(() {
+        name = value.data()!['name'];
+        email = value.data()!['email'];
 
-    //     print('name : $name');
-    //     print('email : $email');
-    //   });
-    // }).onError((error, stackTrace) {
-    //   print(error.toString());
-    // });
+        print('name : $name');
+        print('email : $email');
+      });
+    }).onError((error, stackTrace) {
+      print(error.toString());
+    });
 
     super.initState();
   }
