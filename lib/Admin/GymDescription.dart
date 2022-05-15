@@ -164,7 +164,7 @@ class _GymDescrptionState extends State<GymDescrption> {
       ),
       content: Text('Are you sure you want to delete this gym?'),
       actions: [
-        FlatButton(
+        TextButton(
             onPressed: () {
               Navigator.pop(context);
               deleteGym();
@@ -173,7 +173,7 @@ class _GymDescrptionState extends State<GymDescrption> {
               'Yes',
               style: TextStyle(color: colors.red_base),
             )),
-        FlatButton(
+        TextButton(
             onPressed: () {
               Navigator.pop(context);
             },
@@ -266,7 +266,8 @@ class _GymDescrptionState extends State<GymDescrption> {
 // show all reviews
             List<Widget> commentCards = [];
             for (var item in reviews) {
-              commentCards.add(commentCard(review: item));
+              commentCards
+                  .add(commentCard(review: item, gymId: widget.gym.gymId!));
             }
             return Column(
               children: commentCards,

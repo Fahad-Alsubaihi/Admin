@@ -1,22 +1,24 @@
 import 'dart:io';
 
 //import 'package:firebase_auth_web/firebase_auth_web.dart';
+import 'package:Admin/models/Owner.dart';
+import 'package:Admin/provider/customer.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 
 import '../Styles.dart';
 
-//import 'package:gymhome/models/Owner.dart';
-//import 'package:gymhome/provider/customer.dart';
-//import 'package:gymhome/widgets/welcome.dart';
+// import 'package:gymhome/models/Owner.dart';
+// import 'package:gymhome/provider/customer.dart';
+// import 'package:gymhome/widgets/welcome.dart';
 
-//import 'package:image_picker/image_picker.dart';
+// import 'package:image_picker/image_picker.dart';
 
-//import '../GymOwnerwidgets/ownerhome.dart';
-//import '../widgets/newhome.dart';
+// import '../GymOwnerwidgets/ownerhome.dart';
+// import '../widgets/newhome.dart';
 
-//import 'package:gymhome/models/userdata.dart';
+// import 'package:gymhome/models/userdata.dart';
 
 class AppUser {
   // String email;
@@ -63,7 +65,7 @@ class AppUser {
   //     // }
   //     // });
 
-  //  String userid = FirebaseAuthWeb.instance.currentUser!.uid;
+  //     String userid = FirebaseAuthWeb.instance.currentUser!.uid;
   //     String profilePicture =
   //         'https://firebasestorage.googleapis.com/v0/b/gymshome-ce96b.appspot.com/o/DefaultProfilePic.jpg?alt=media&token=e175c7f8-55f2-4575-8315-9bc5a527fd9b';
   //     UserData.setUserDate(customer, userid, name, email);
@@ -166,52 +168,53 @@ class AppUser {
   //   }
   // }
 
-//  static Future<void> logout() async {
-//     _token = 'null';
-//     _userId = 'null';
-//     _expiryDate = 'null' as DateTime;
-//     if (_authTimer != 'null') {
-//       _authTimer.cancel();
-//       _authTimer = 'null' as Timer;
-//     }
-  // notifyListeners();
-//     final prefs = await SharedPreferences.getInstance();
-//     // prefs.remove('userData');
-//     prefs.clear();
-//   }
-
-  // static bool areYousure(
-  //     BuildContext cxt, String title, String messame, Function? function) {
-  //   bool sure;
-
-  //   showDialog<bool>(
-  //     context: cxt,
-  //     builder: (BuildContext context) => AlertDialog(
-  //       title: Text(title, style: TextStyle(color: colors.blue_base)),
-  //       content: Text(messame, style: TextStyle(color: colors.black60)),
-  //       actions: [
-  //         TextButton(
-  //           onPressed: () => Navigator.pop(context, false),
-  //           child:
-  //               const Text('Cancel', style: TextStyle(color: colors.red_base)),
-  //         ),
-  //         TextButton(
-  //           onPressed: () {
-  //             function;
-  //             Navigator.pop(context, true);
-  //           },
-  //           child: const Text(
-  //             'yes',
-  //             style: TextStyle(color: colors.blue_base),
-  //           ),
-  //         ),
-  //       ],
-  //     ),
-  //   ).then((value) {
-  //     return value;
-  //   });
-  //   return false;
+  // static Future<void> logout() async {
+  //   _token = 'null';
+  //   _userId = 'null';
+  //   _expiryDate = 'null' as DateTime;
+  //   if (_authTimer != 'null') {
+  //     _authTimer.cancel();
+  //     _authTimer = 'null' as Timer;
+  //   }
+  //   notifyListeners();
+  //   final prefs = await SharedPreferences.getInstance();
+  //   // prefs.remove('userData');
+  //   prefs.clear();
   // }
+
+  static bool areYousure(
+      BuildContext cxt, String title, String messame, Function? function) {
+    bool sure;
+
+    showDialog<bool>(
+      context: cxt,
+      builder: (BuildContext context) => AlertDialog(
+        title: Text(title, style: TextStyle(color: colors.blue_base)),
+        content: Text(messame, style: TextStyle(color: colors.black60)),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context, false),
+            child:
+                const Text('Cancel', style: TextStyle(color: colors.red_base)),
+          ),
+          TextButton(
+            onPressed: () {
+              function;
+              Navigator.pop(context, true);
+            },
+            child: const Text(
+              'yes',
+              style: TextStyle(color: colors.blue_base),
+            ),
+          ),
+        ],
+      ),
+    ).then((value) {
+      return value;
+    });
+    return false;
+  }
+
   static warning(BuildContext cxt, String message) {
     ScaffoldMessenger.of(cxt).showSnackBar(
       SnackBar(

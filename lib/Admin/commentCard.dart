@@ -1,3 +1,6 @@
+import 'package:Admin/Admin/GymModel.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:Admin/Styles.dart';
 import '../models/review.dart';
@@ -5,13 +8,71 @@ import '../models/user.dart';
 
 class commentCard extends StatefulWidget {
   final Review review;
-  const commentCard({Key? key, required this.review}) : super(key: key);
+  final String gymId;
+  const commentCard({Key? key, required this.review, required this.gymId})
+      : super(key: key);
 
   @override
   State<commentCard> createState() => _commentCardState();
 }
 
 class _commentCardState extends State<commentCard> {
+  deleteReview() {
+    FirebaseFirestore.instance
+        .collection('gyms')
+        .doc(widget.gymId)
+        .collection('Review')
+        .doc(widget.review.uid)
+        .delete()
+        .whenComplete(() => FirebaseFirestore.instance
+                .collection('gyms')
+                .where('isWaiting', isEqualTo: false)
+                .get()
+                .then((value) {
+              value.docs.forEach((element) {
+                Review.setRateToGym(element.reference.id);
+              });
+            }));
+    FirebaseFirestore.instance
+        .collection('Customer')
+        .doc(widget.review.uid)
+        .update({
+      'reviews': FieldValue.arrayRemove([widget.gymId])
+    });
+  }
+
+  Widget AlertDialogs() {
+    return AlertDialog(
+      title: Text(
+        'Delete Review?',
+        style: TextStyle(color: colors.red_base),
+      ),
+      content: Text('Are you sure you want to delete this review?'),
+      actions: [
+        TextButton(
+            onPressed: () {
+              Navigator.pop(context);
+              deleteReview();
+            },
+            child: Text(
+              'Yes',
+              style: TextStyle(color: colors.red_base),
+            )),
+        TextButton(
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            child: Text(
+              'No',
+              style: TextStyle(color: colors.blue_base),
+            )),
+      ],
+      clipBehavior: Clip.antiAliasWithSaveLayer,
+      elevation: 24,
+      // backgroundColor: colors.blue_smooth,
+    );
+  }
+
   bool readmore = false;
   @override
   Widget build(BuildContext context) {
@@ -107,32 +168,48 @@ class _commentCardState extends State<commentCard> {
                   )
                 ],
               ),
-              Row(
+              Column(
+                mainAxisAlignment: MainAxisAlignment.end,
                 children: [
-                  Column(
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
                     children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          for (var i = 0; i < widget.review.rate; i++)
-                            Icon(
-                              Icons.star,
-                              size: 40,
-                              color: colors.yellow_base,
-                            ),
-                        ],
-                      ),
+                      for (var i = 0; i < widget.review.rate; i++)
+                        Icon(
+                          Icons.star,
+                          size: 40,
+                          color: colors.yellow_base,
+                        ),
                     ],
-                  )
+                  ),
+                  SizedBox(
+                    height: 50,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      Text(widget.review.time.toString()),
+                    ],
+                  ),
                 ],
-              )
+              ),
+              SizedBox(
+                width: 200,
+              ),
+              Container(
+                margin: EdgeInsets.only(right: 30),
+                child: TextButton(
+                  child: Text(
+                    'Delete Review',
+                    style: TextStyle(color: colors.red_base),
+                  ),
+                  onPressed: () {
+                    showDialog(
+                        context: context, builder: (_) => AlertDialogs());
+                  },
+                ),
+              ),
             ],
-          ),
-          Container(
-            child: Align(
-              alignment: Alignment.bottomRight,
-              child: Text(widget.review.time.toString()),
-            ),
           ),
           Divider(
             color: colors.black60,
