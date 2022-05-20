@@ -181,7 +181,6 @@ class Review {
 
       setAvgRate(gymid, avg, size);
     }
-    ;
   }
 
   static setAvgRate(String gymid, double avg, int size) {

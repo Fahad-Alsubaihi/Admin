@@ -48,7 +48,17 @@ class _CustomerListState extends State<CustomerList> {
     FirebaseFirestore.instance
         .collection('Gym Owner')
         .doc(uid)
-        .update({'isban': true});
+        .update({'isban': true}).whenComplete(() {
+      var snapshot = FirebaseFirestore.instance
+          .collection('gyms')s
+          .where('ownerId', isEqualTo: uid)
+          .snapshots();
+      snapshot.forEach((element) {
+        element.docs.forEach((element) {
+          element.reference.delete();
+        });
+      });
+    });
     // final HttpsCallable callable = _functions.httpsCallable("disabledUser");
     // return callable.call(uid);
   }

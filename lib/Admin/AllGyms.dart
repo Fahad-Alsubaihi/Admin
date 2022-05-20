@@ -40,11 +40,11 @@ class _AllGymsState extends State<AllGyms> {
         title: Center(
           child: widget.isNew!
               ? Text(
-                  'New Gyms',
+                  'Waiting Gyms',
                   style: TextStyle(color: Colors.white, fontFamily: 'Epilogue'),
                 )
               : Text(
-                  'Old Gyms',
+                  'Accepted Gyms',
                   style: TextStyle(color: Colors.white, fontFamily: 'Epilogue'),
                 ),
         ),

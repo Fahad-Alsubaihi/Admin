@@ -32,26 +32,7 @@ class _AdminHomeState extends State<AdminHome> {
       }
     }
 
-    Widget AlertDialogs() {
-      return AlertDialog(
-        title: Text('Delete Image?'),
-        actions: [
-          FlatButton(
-              onPressed: () {
-                Navigator.pop(context);
-              },
-              child: Text('Delete')),
-          FlatButton(
-              onPressed: () {
-                Navigator.pop(context);
-              },
-              child: Text('Cancel')),
-        ],
-        clipBehavior: Clip.antiAliasWithSaveLayer,
-        elevation: 24,
-        backgroundColor: colors.blue_smooth,
-      );
-    }
+    //
 
     return Scaffold(
         appBar: AppBar(
@@ -181,7 +162,7 @@ class _AdminHomeState extends State<AdminHome> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Text(
-                            'New Gyms ',
+                            'Waiting Gyms',
                             style: TextStyle(
                                 fontSize:
                                     40 * MediaQuery.textScaleFactorOf(context)),
@@ -258,8 +239,11 @@ class _AdminHomeState extends State<AdminHome> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Text(
-                            'Old Gyms ',
-                            style: TextStyle(fontSize: 40),
+                            'Accepted Gyms',
+                            style: TextStyle(
+                              fontSize: 40,
+                            ),
+                            textAlign: TextAlign.center,
                           ),
                           // Text(
                           //   '500 ',
