@@ -50,7 +50,7 @@ class _CustomerListState extends State<CustomerList> {
         .doc(uid)
         .update({'isban': true}).whenComplete(() {
       var snapshot = FirebaseFirestore.instance
-          .collection('gyms')s
+          .collection('gyms')
           .where('ownerId', isEqualTo: uid)
           .snapshots();
       snapshot.forEach((element) {
