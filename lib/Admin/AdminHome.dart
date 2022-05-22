@@ -44,21 +44,21 @@ class _AdminHomeState extends State<AdminHome> {
           backgroundColor: colors.blue_base,
           elevation: 0,
           actions: <Widget>[
-            PopupMenuButton<String>(
-              icon: Icon(
-                Icons.more_vert,
-                color: Colors.black,
-              ),
-              onSelected: handleClick,
-              itemBuilder: (BuildContext context) {
-                return {'Logout', 'Add Admin'}.map((String choice) {
-                  return PopupMenuItem<String>(
-                    value: choice,
-                    child: Text(choice),
-                  );
-                }).toList();
-              },
-            ),
+            // PopupMenuButton<String>(
+            //   icon: Icon(
+            //     Icons.more_vert,
+            //     color: Colors.black,
+            //   ),
+            //   onSelected: handleClick,
+            //   itemBuilder: (BuildContext context) {
+            //     return {'Logout', 'Add Admin'}.map((String choice) {
+            //       return PopupMenuItem<String>(
+            //         value: choice,
+            //         child: Text(choice),
+            //       );
+            //     }).toList();
+            //   },
+            // ),
           ],
         ),
         body: SingleChildScrollView(
@@ -77,67 +77,46 @@ class _AdminHomeState extends State<AdminHome> {
                             fontStyle: FontStyle.italic,
                             fontSize: 30),
                       )),
-                  Container(
-                    margin: EdgeInsets.only(left: 300),
-                    height: 150,
-                    width: 150,
-                    child: ElevatedButton(
-                      onPressed: () {
-                        // Navigator.of(context).push(
-                        //   MaterialPageRoute(
-                        //       builder: (context) => PlaceLocation(
-                        //           gym: GymModel([], [], [],
-                        //               0,
-                        //               0,
-                        //               0,
-                        //               0,
-                        //               0,
-                        //               '',
-                        //               'gymId',
-                        //               'ownerId',
-                        //               'Fahad',
-                        //               'description',
-                        //               GeoPoint(0, 0),
-                        //               false,
-                        //               false,
-                        //               'Men',
-                        //               0,
-                        //               0))),
-                        // );
+                  // Container(
+                  //   margin: EdgeInsets.only(left: 300),
+                  //   height: 150,
+                  //   width: 150,
+                  //   child: ElevatedButton(
+                  //     onPressed: () {
 
-                        FirebaseFirestore.instance
-                            .collection('gyms')
-                            .where('isWaiting', isEqualTo: false)
-                            .get()
-                            .then((value) {
-                          value.docs.forEach((element) {
-                            Review.setRateToGym(element.reference.id);
-                          });
-                        });
-                      },
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            'Refresh',
-                            style: TextStyle(fontSize: 30),
-                          ),
-                        ],
-                      ),
-                      style: ElevatedButton.styleFrom(
-                        side: BorderSide(
-                          width: 7,
-                          color: Color.fromARGB(255, 170, 141, 62),
-                        ),
+                  //       FirebaseFirestore.instance
+                  //           .collection('gyms')
+                  //           .where('isWaiting', isEqualTo: false)
+                  //           .get()
+                  //           .then((value) {
+                  //         value.docs.forEach((element) {
+                  //           Review.setRateToGym(element.reference.id);
+                  //         });
+                  //       });
+                  //     },
+                  //     child: Column(
+                  //       mainAxisAlignment: MainAxisAlignment.center,
+                  //       children: [
+                  //         Text(
+                  //           'Refresh',
+                  //           style: TextStyle(fontSize: 30),
+                  //         ),
+                  //       ],
+                  //     ),
+                  //     style: ElevatedButton.styleFrom(
+                  //       side: BorderSide(
+                  //         width: 7,
+                  //         color: Color.fromARGB(255, 170, 141, 62),
+                  //       ),
 
-                        shape: CircleBorder(),
-                        padding: EdgeInsets.all(20),
-                        primary: Colors.white, // <-- Button color
-                        onPrimary: Color.fromARGB(
-                            255, 170, 141, 62), // <-- Splash color
-                      ),
-                    ),
-                  )
+                  //       shape: CircleBorder(),
+                  //       padding: EdgeInsets.all(20),
+                  //       primary: Colors.white, // <-- Button color
+                  //       onPrimary: Color.fromARGB(
+                  //           255, 170, 141, 62), // <-- Splash color
+                  //     ),
+                  //   ),
+                  // )
                 ],
               ),
               Row(
