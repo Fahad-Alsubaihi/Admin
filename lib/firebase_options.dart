@@ -63,7 +63,8 @@ class DefaultFirebaseOptions {
     projectId: 'gymshome-ce96b',
     databaseURL: 'https://gymshome-ce96b-default-rtdb.firebaseio.com',
     storageBucket: 'gymshome-ce96b.appspot.com',
-    iosClientId: '805681889681-idp53frhg683gnpdt6i2228bc4hcru1a.apps.googleusercontent.com',
+    iosClientId:
+        '805681889681-idp53frhg683gnpdt6i2228bc4hcru1a.apps.googleusercontent.com',
     iosBundleId: 'com.example.test60',
   );
 }

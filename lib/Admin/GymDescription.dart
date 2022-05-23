@@ -55,9 +55,9 @@ class _GymDescrptionState extends State<GymDescrption> {
         });
         print('comm');
         break;
-      case 'Facilites':
+      case 'Facilities':
         setState(() {
-          window = "Facilites";
+          window = "Facilities";
         });
         print('fac');
         break;
@@ -279,7 +279,7 @@ class _GymDescrptionState extends State<GymDescrption> {
           );
         }, //end then
       );
-    } else if (window == 'Facilites') {
+    } else if (window == 'Facilities') {
       return Column(
         children: [
           Wrap(
@@ -763,7 +763,7 @@ class _GymDescrptionState extends State<GymDescrption> {
                                     topLeft: Radius.circular(15),
                                     topRight: Radius.circular(15),
                                   ),
-                                  color: window == 'Facilites'
+                                  color: window == 'Facilities'
                                       ? Color.fromARGB(195, 71, 153, 183)
                                       : Colors.white,
                                 ),
@@ -775,10 +775,10 @@ class _GymDescrptionState extends State<GymDescrption> {
                                       width: 3,
                                     ),
                                     Text(
-                                      'Facilites',
+                                      'Facilities',
                                       style: TextStyle(
                                         fontSize: 30,
-                                        color: window == 'Facilites'
+                                        color: window == 'Facilities'
                                             ? Colors.white
                                             : Colors.black,
                                       ),
@@ -787,7 +787,7 @@ class _GymDescrptionState extends State<GymDescrption> {
                                 )),
                               ),
                               onTap: () {
-                                windowChoose("Facilites");
+                                windowChoose("Facilities");
                               },
                             ),
                           ),
